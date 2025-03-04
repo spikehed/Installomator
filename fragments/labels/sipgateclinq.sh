@@ -5,4 +5,3 @@ sipgateclinq)
     downloadURL="https://desktop.download.sipgate.com/sipgate%20CLINQ-${appNewVersion}.dmg"
     expectedTeamID="K4L4M6DD76"
 ;;
-

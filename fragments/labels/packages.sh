@@ -1,4 +1,3 @@
-
 packages)
    #NOTE: Packages is signed but _not_ notarized, so spctl will reject it
    name="Packages"

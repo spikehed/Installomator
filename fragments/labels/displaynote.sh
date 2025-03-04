@@ -1,4 +1,4 @@
-    displaynote)
+displaynote)
     name="displaynote"
     type="pkg"
     packageID="com.displaynote.DisplayNoteApp"

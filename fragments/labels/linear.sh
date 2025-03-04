@@ -12,4 +12,3 @@ linear)
     appName="Linear.app"
     blockingProcesses=( "Linear" )
     ;;
-    

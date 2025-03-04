@@ -7,4 +7,4 @@ grammarly)
      # appName="Grammarly Installer.app"
      installerTool="Grammarly Installer.app"
      CLIInstaller="Grammarly Installer.app/Contents/MacOS/Grammarly Desktop"
-;;
+     ;;

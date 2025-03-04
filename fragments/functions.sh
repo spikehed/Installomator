@@ -209,11 +209,11 @@ versionFromGit() {
 xpath() {
 	# the xpath tool changes in Big Sur and now requires the `-e` option
 	if [[ $(sw_vers -buildVersion) > "20A" ]]; then
-		/usr/bin/xpath -q -e $@
+		/usr/bin/xpath -e $@
 		# alternative: switch to xmllint (which is not perl)
 		#xmllint --xpath $@ -
 	else
-		/usr/bin/xpath -q $@
+		/usr/bin/xpath $@
 	fi
 }
 
@@ -264,11 +264,11 @@ getAppVersion() {
 #            targetDir="/Applications/Utilities"
 #        fi
     else
+    #    applist=$(mdfind "kind:application $appName" -0 )
         printlog "name: $name, appName: $appName"
-        # mdfind now handling if kind is either Application or App
-        applist=$(mdfind "kMDItemContentType:com.apple.application AND kMDItemFSName:\"$name\"" -0 2>/dev/null)
-#        applist=$(mdfind "kMDItemContentType:com.apple.application AND kMDItemFSName:\"$appName\"" -0 2>/dev/null)
+        applist=$(mdfind "kind:application AND name:$name" -0 )
 #        printlog "App(s) found: ${applist}" DEBUG
+#        applist=$(mdfind "kind:application AND name:$appName" -0 )
     fi
     if [[ -z $applist ]]; then
         printlog "No previous app found" WARN
@@ -447,6 +447,11 @@ reopenClosedProcess() {
     else
         printlog "Installomator did not close any apps, so no need to reopen any apps." INFO
     fi
+}
+
+whiteListPKG(){
+    printlog "$archiveName will be whitelisted"
+    /usr/bin/xattr -d com.apple.quarantine "$archiveName" 
 }
 
 installAppWithPath() { # $1: path to app to install in $targetDir $2: path to folder (with app inside) to copy to $targetDir
@@ -638,7 +643,11 @@ installFromPKG() {
 
     deduplicatelogs "$spctlOut"
 
-    if [[ $spctlStatus -ne 0 ]] ; then
+    if [[ $spctlStatus -ne 0 ]] && [[ $WHITELIST = "yes" ]]; then
+        printlog "$label is not notarized, but will be whitelisted."
+        whiteListPKG
+    elif [[ $spctlStatus -ne 0 ]]; then
+        #statements
     #if ! spctlout=$(spctl -a -vv -t install "$archiveName" 2>&1 ); then
         cleanupAndExit 4 "Error verifying $archiveName error:\n$logoutput" ERROR
     fi
@@ -837,8 +846,8 @@ installPkgInZip() {
 installAppInDmgInZip() {
     # unzip the archive
     printlog "Unzipping $archiveName"
-    tar -xf "$archiveName"
-
+    # tar -xf "$archiveName"
+    zip -dq "$archiveName" __MACOSX/\*; unzip -q "$archiveName"
     # locate dmg in zip
     if [[ -z $pkgName ]]; then
         # find first file ending with 'dmg'

@@ -7,4 +7,3 @@ gathertown)
     archiveName="Gather-${appNewVersion}-universal.dmg"
     expectedTeamID="69MCJ5CRDW"
     ;;
-

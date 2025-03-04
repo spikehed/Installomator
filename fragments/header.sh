@@ -26,7 +26,7 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # also no actual installation will be performed
 # debug mode 1 will download to the directory the script is run in, but will not check the version
 # debug mode 2 will download to the temp directory, check for blocking processes, check the version, but will not install anything or remove the current version
-DEBUG=1
+DEBUG=0
 
 # notify behavior
 NOTIFY=success
@@ -81,9 +81,8 @@ BLOCKING_PROCESS_ACTION=tell_user
 #                  the blocking processes will be terminated.
 #   - kill         kill process without prompting or giving the user a chance to save
 
-
 # logo-icon used in dialog boxes if app is blocking
-LOGO=appstore
+LOGO=jamf
 # options:
 #   - appstore      Icon is Apple App Store (default)
 #   - jamf          JAMF Pro
@@ -97,7 +96,6 @@ LOGO=appstore
 # path can also be set in the command call, and if file exists, it will be used.
 # Like 'LOGO="/System/Applications/App\ Store.app/Contents/Resources/AppIcon.icns"'
 # (spaces have to be escaped).
-
 
 # App Store apps handling
 IGNORE_APP_STORE_APPS=no
@@ -124,7 +122,6 @@ INSTALL=""
 #                  if it is newer/different in version
 #  - force         Install even if it’s the same version
 
-
 # Re-opening of closed app
 REOPEN="yes"
 # options:
@@ -139,7 +136,6 @@ REOPEN="yes"
 #            use DEPNotify, then DEPNotify can present a more nice name to the user,
 #            instead of just the label name.
 
-
 # Interrupt Do Not Disturb (DND) full screen apps
 INTERRUPT_DND="yes"
 # options:
@@ -150,17 +146,6 @@ INTERRUPT_DND="yes"
 IGNORE_DND_APPS=""
 # example that will ignore browsers when evaluating DND:
 # IGNORE_DND_APPS="firefox,Google Chrome,Safari,Microsoft Edge,Opera,Amphetamine,caffeinate"
-
-
-# Use proxy for network access
-PROXY=""
-# Use this format for proxy: server.network.dns:port
-# Configure proxy settings so that curl can work through that if needed.
-# Port number is important for the check of access.
-# Please note that some proxy configurations allow text download, but block binary downloads.
-# So could be a situation where curl works for version, but not for download.
-# This error line is then shown: “curl output was: curl: (22) The requested URL returned error: 403”
-
 
 # Swift Dialog integration
 
@@ -180,9 +165,8 @@ DIALOG_LIST_ITEM_NAME=""
 # listitem.
 # When the variable is unset, progress will be sent to Swift Dialog's main progress bar.
 
-NOTIFY_DIALOG=0
+NOTIFY_DIALOG=1
 # If this variable is set to 1, then we will check for installed Swift Dialog v. 2 or later, and use that for notification
-
 
 # NOTE: How labels work
 

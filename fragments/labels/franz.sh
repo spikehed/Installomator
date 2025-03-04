@@ -10,4 +10,3 @@ franz)
     appNewVersion="$(versionFromGit meetfranz franz)"
     expectedTeamID="TAC9P63ANZ"
     ;;
-
